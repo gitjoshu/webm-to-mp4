@@ -55,6 +55,10 @@ app.post("/convert", upload.single("file"), (req, res) => {
     .run();
 });
 
+app.get("/hello", (req, res) => {
+  res.send("Hello World!");
+});
+
 app.listen(port, () => {
   console.log(`Server listening at port:${port}`);
 });
