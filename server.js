@@ -15,6 +15,9 @@ app.post("/convert", upload.single("file"), (req, res) => {
   const file = req.file; // The uploaded file object
   res.setHeader("Content-Type", "text/html");
   res.setHeader('Access-Control-Allow-Origin', '*');
+  res.setHeader('Access-Control-Allow-Methods', 'GET, POST, OPTIONS, PUT, PATCH, DELETE');
+  res.setHeader('Access-Control-Allow-Headers', 'X-Requested-With,content-type');
+  res.setHeader('Access-Control-Allow-Credentials', true);
   ffmpeg(file.path)
     .outputOptions([
       "-vf",
@@ -53,5 +56,5 @@ app.post("/convert", upload.single("file"), (req, res) => {
 });
 
 app.listen(port, () => {
-  console.log(`Server listening at http://localhost:${port}`);
+  console.log(`Server listening at port:${port}`);
 });
