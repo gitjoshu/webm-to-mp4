@@ -1,21 +1,14 @@
 const express = require("express");
-const multer = require("multer");
-const ffmpeg = require("fluent-ffmpeg");
-const fs = require("fs");
+const router = express.Router();
 
-const app = express();
-const port = 8081;
-
-const upload = multer({ dest: "uploads/" });
-
-app.use(express.static("public"));
-app.use(express.urlencoded({ extended: true }));
-
-app.post("/convert", upload.single("file"), (req, res) => {
+router.post("/convert", upload.single("file"), (req, res) => {
   const file = req.file; // The uploaded file object
   res.setHeader("Content-Type", "text/html");
-  res.setHeader('Access-Control-Allow-Origin', '*');
-  res.setHeader('Access-Control-Allow-Methods', 'GET, POST, OPTIONS, PUT, PATCH, DELETE');
+  res.setHeader("Access-Control-Allow-Origin", "*");
+  res.setHeader(
+    "Access-Control-Allow-Methods",
+    "GET, POST, OPTIONS, PUT, PATCH, DELETE"
+  );
   // res.setHeader('Access-Control-Allow-Headers', 'X-Requested-With,content-type');
   // res.setHeader('Access-Control-Allow-Credentials', true);
   ffmpeg(file.path)
@@ -47,7 +40,7 @@ app.post("/convert", upload.single("file"), (req, res) => {
             if (error) {
               console.error(error);
             }
-            console.log("Archivo borrado")
+            console.log("Archivo borrado");
           });
         }
       });
@@ -55,10 +48,4 @@ app.post("/convert", upload.single("file"), (req, res) => {
     .run();
 });
 
-app.get("/hello", (req, res) => {
-  res.send("Hello World!");
-});
-
-app.listen(port, () => {
-  console.log(`Server listening at port:${port}`);
-});
+module.exports = router;
