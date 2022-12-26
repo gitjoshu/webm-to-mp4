@@ -2,10 +2,10 @@
     "version": 2,
     "name": "futsal",
     "builds": [
-      { "src": "index.js", "use": "@now/node" }
+      { "src": "./server.js.js", "use": "@vercel/node" }
     ],
     "routes": [
-      { "src": "/(.*)", "dest": "index.js" }
+      { "src": "/(.*)", "dest": "/" }
     ],
     "headers": [
       {
